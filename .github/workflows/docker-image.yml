@@ -31,3 +31,9 @@ jobs:
       run: |
         cd Todo-application/frontend
         docker build -t frontend:v1.0 .
+        
+    - name: RUn docker images
+      run: |
+        docker network create webapp_network
+        docker run -d -p 5000:5000 --name backend --network webapp_network backend:v1.0
+        docker run -d -p 3000:3000 --name frontend --network webapp_network frontend:v1.0
